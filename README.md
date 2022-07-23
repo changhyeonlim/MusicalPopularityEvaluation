@@ -8,14 +8,14 @@ Many research groups including social sciences, computer science, and even music
 
 
 ## Our Definition of Popularity
-<img src="images/popularitydefintion.png?width=400"/>
+<img src="images/popularitydefintion.png?width=100"/>
 
 ## Data Collections and Manipulation
-<img src="images/datacollection.png?raw=true"/>
+<img src="images/datacollection.png?width=100"/>
 
 ## Exploratory Data Analysis using a Radar Plot
-<img src="images/distinctradar.png?raw=true"/>
+<img src="images/distinctradar.png?width=100"/>
 
 ## ML Model on Popularity
-<img src="images/mlmodel.png?raw=true"/>
+<img src="images/mlmodel.png?width=100"/>
 
