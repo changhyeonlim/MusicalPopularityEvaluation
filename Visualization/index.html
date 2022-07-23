@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
+    <title>Music Visualization</title>
+    <link rel="stylesheet" href="music.css" />
+    <!-- Google fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,300"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <style>
+      .spacer{
+        display:block;
+        height:120px;
+        width:100%;
+        margin: 0 auto;
+        content:"";
+      }
+    </style>
+
+    <!-- D3 & P5 -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src=
+        "https://d3js.org/d3-color.v1.min.js">
+    </script>
+    <script src=
+        "https://d3js.org/d3-interpolate.v1.min.js">
+    </script>
+    <script src=
+    "https://d3js.org/d3-scale-chromatic.v1.min.js">
+    </script>
+    <script>var d4 = d3;</script>
+    <script src="./static/lib/d3.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./p5/p5.js"></script>
+    <script type="text/javascript" src="./p5/addons/p5.sound.js"></script>
+  </head>
+
+  <body>
+    <h1>Music Trend Analysis</h1>
+    <div class="content">
+    <div class="container" id="radar_1">
+      <label class="dropdown" id="dropdown_title">Select Year: </label>
+      <select class="dropdown" id="yearDropdown_1"></select>
+      <label class="checkbox_c" id="check_title_1">Popular </label>
+      <input class="checkbox_c" type="checkbox" id="popular_checkbox_1" />
+      <label class="checkbox_c" id="check_title_2">Not-Popular </label>
+      <input class="checkbox_c" type="checkbox" id="not_popular_checkbox_1" />
+    </div>
+    <div class="container" id="radar_2">
+      <label class="dropdown" id="dropdown_title">Select Year: </label>
+      <select class="dropdown" id="yearDropdown_2"></select>
+      <label class="checkbox_c" id="check_title_1">Popular </label>
+      <input class="checkbox_c" type="checkbox" id="popular_checkbox_2" />
+      <label class="checkbox_c" id="check_title_2">Not-Popular </label>
+      <input class="checkbox_c" type="checkbox" id="not_popular_checkbox_2" />
+    </div>
+
+    <script src="radarChart.js"></script>
+    <script>
+      var margin = { top: 100, right: 100, bottom: 100, left: 100 },
+        r_width =
+          Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
+        r_height = Math.min(
+          r_width,
+          window.innerHeight - margin.top - margin.bottom - 20
+        );
+
+      //Data files ranging from 1980~2021
+      var files = [];
+      for (var i = 1980; i <= 2021; i++) {
+        files.push(i.toString());
+      }
+
+      var drop_down_option = d3
+        .select("#yearDropdown_1")
+        .selectAll("option")
+        .data(files)
+        .enter()
+        .append("option")
+        .attr("value", function (d) {
+          return d;
+        })
+        .append("text")
+        .text(function (d) {
+          return d;
+        });
+      var drop_down_option = d3
+        .select("#yearDropdown_2")
+        .selectAll("option")
+        .data(files)
+        .enter()
+        .append("option")
+        .attr("value", function (d) {
+          return d;
+        })
+        .append("text")
+        .text(function (d) {
+          return d;
+        });
+
+      //Default file
+      var file_1 = files[41];
+      var file_2 = files[12];
+      //Set dropdown default value
+      document.getElementById("yearDropdown_1").value = file_1;
+      document.getElementById("yearDropdown_2").value = file_2;
+
+      run(file_1, "#radar_1", "No_1");
+      run(file_2, "#radar_2", "No_2");
+
+      function change_1(d) {
+        file = d3.select(this).property("value");
+        run(file, "#radar_1", "No_1");
+      }
+      function change_2(d) {
+        file = d3.select(this).property("value");
+        run(file, "#radar_2", "No_2");
+      }
+      function checkAll() {
+        d3.selectAll("input").property("checked", true);
+      }
+      checkAll();
+
+      function radar1_show_hide_pop() {
+        if (
+          d3.select("input#popular_checkbox_1").property("checked") == false
+        ) {
+          d3.select("input#popular_checkbox_1").property("checked") == true;
+          d3.select("#No_1r_wrapper0").style("display", "none");
+        } 
+        else {
+          d3.select("input#popular_checkbox_1").property("checked") == false;
+          d3.select("#No_1r_wrapper0").style("display", "inline");
+        }
+      }
+      function radar1_show_hide_not_pop() {
+        if (
+          d3.select("input#not_popular_checkbox_1").property("checked") == false
+        ) {
+          d3.select("input#not_popular_checkbox_1").property("checked") == true;
+          d3.select("#No_1r_wrapper1").style("display", "none");
+        } 
+        else {
+          d3.select("input#not_popular_checkbox_1").property("checked") == false;
+          d3.select("#No_1r_wrapper1").style("display", "inline");
+        }
+      }
+
+      function radar2_show_hide_pop() {
+        if (
+          d3.select("input#popular_checkbox_2").property("checked") == false
+        ) {
+          d3.select("input#popular_checkbox_2").property("checked") == true;
+          d3.select("#No_2r_wrapper0").style("display", "none");
+        } else {
+          d3.select("input#popular_checkbox_2").property("checked") == false;
+          d3.select("#No_2r_wrapper0").style("display", "inline");
+        }
+      }
+
+      function radar2_show_hide_not_pop() {
+        if (
+          d3.select("input#not_popular_checkbox_2").property("checked") == false
+        ) {
+          d3.select("input#not_popular_checkbox_2").property("checked") == true;
+          d3.select("#No_2r_wrapper1").style("display", "none");
+        } 
+        else {
+          d3.select("input#not_popular_checkbox_2").property("checked") ==
+            false;
+          d3.select("#No_2r_wrapper1").style("display", "inline");
+        }
+      }
+      function run(file, element, Identify) {
+        var path = "./static/data/" + file + ".csv";
+        d3.select("#yearDropdown_1").on("change", change_1);
+        d3.select("#yearDropdown_2").on("change", change_2);
+
+        //Check box for radar plot 1
+        d3.select("#popular_checkbox_1").on("change", radar1_show_hide_pop);
+        d3.select("#not_popular_checkbox_1").on(
+          "change",
+          radar1_show_hide_not_pop
+        );
+        //Check box for radar plot 2
+        d3.select("#popular_checkbox_2").on("change", radar2_show_hide_pop);
+        d3.select("#not_popular_checkbox_2").on(
+          "change",
+          radar2_show_hide_not_pop
+        );
+        d3.csv(path, function (data) {
+          var popular = [];
+          var not_popular = [];
+          var total_data_number = data.length;
+
+          //Distinguish popular and non popular
+          for (var i = 0; i < total_data_number; i++) {
+            if (data[i].weeks > 10) {
+              data[i].popular = 1;
+            } else {
+              data[i].popular = 0;
+            }
+          }
+          // Divide into popular and not popular
+          for (var i = 0; i < total_data_number; i++) {
+            if (data[i].popular == 1) {
+              popular.push(data[i]);
+            } else {
+              not_popular.push(data[i]);
+            }
+          }
+          //List out the fearures
+          var features = [
+            "danceability",
+            "loudness",
+            "speechiness",
+            "tempo",
+            "valence",
+            "energy",
+            "duration",
+            "instrumentalness",
+          ];
+          //Define Scale
+          let tempoScale = d3.scale.linear().domain([50, 150]).range([0, 100]);
+          let loudScale = d3.scale.linear().domain([0, 23]).range([0, 100]);
+          let energyScale = d3.scale.linear().domain([0, 1]).range([0, 100]);
+          let danceScale = d3.scale.linear().domain([0, 1]).range([0, 100]);
+          let valanceScale = d3.scale.linear().domain([0, 1]).range([0, 100]);
+          let speechScale = d3.scale.linear().domain([0, 0.5]).range([0, 100]);
+          let durationScale = d3.scale
+            .linear()
+            .domain([90000, 688453])
+            .range([0, 100]);
+          let InstrumentScale = d3.scale
+            .linear()
+            .domain([0, 0.09])
+            .range([0, 100]);
+
+          // Calculate the average of features (Popular)
+          var pop_dance_avg = 0;
+          var pop_loud_avg = 0;
+          var pop_speech_avg = 0;
+          var pop_tempo_avg = 0;
+          var pop_valance_avg = 0;
+          var pop_energy_avg = 0;
+          var pop_dur_avg = 0;
+          var pop_instrument_avg = 0;
+
+          for (var i = 0; i < popular.length; i++) {
+            pop_dance_avg += parseFloat(popular[i].danceability);
+            pop_loud_avg += parseFloat(popular[i].loudness) + 23;
+            pop_speech_avg += parseFloat(popular[i].speechiness);
+            pop_tempo_avg += parseFloat(popular[i].tempo);
+            pop_valance_avg += parseFloat(popular[i].valence);
+            pop_energy_avg += parseFloat(popular[i].energy);
+            pop_dur_avg += parseFloat(popular[i].duration_ms);
+            pop_instrument_avg += parseFloat(popular[i].instrumentalness);
+          }
+          var pop_len = popular.length;
+
+          pop_dance_avg = danceScale(pop_dance_avg / pop_len);
+          pop_loud_avg = loudScale(pop_loud_avg / pop_len);
+          pop_speech_avg = speechScale(pop_speech_avg / pop_len);
+          pop_tempo_avg = tempoScale(pop_tempo_avg / pop_len);
+          pop_valance_avg = valanceScale(pop_valance_avg / pop_len);
+          pop_energy_avg = energyScale(pop_energy_avg / pop_len);
+          pop_dur_avg = durationScale(pop_dur_avg / pop_len);
+          pop_instrument_avg = InstrumentScale(pop_instrument_avg / pop_len);
+
+          // Calculate the average of features (not-Popular)
+          var unpop_dance_avg = 0;
+          var unpop_loud_avg = 0;
+          var unpop_speech_avg = 0;
+          var unpop_tempo_avg = 0;
+          var unpop_valance_avg = 0;
+          var unpop_energy_avg = 0;
+          var unpop_dur_avg = 0;
+          var unpop_instrument_avg = 0;
+
+          for (var i = 0; i < not_popular.length; i++) {
+            unpop_dance_avg += parseFloat(not_popular[i].danceability);
+            unpop_loud_avg += parseFloat(not_popular[i].loudness) + 23;
+            unpop_speech_avg += parseFloat(not_popular[i].speechiness);
+            unpop_tempo_avg += parseFloat(not_popular[i].tempo);
+            unpop_valance_avg += parseFloat(not_popular[i].valence);
+            unpop_energy_avg += parseFloat(not_popular[i].energy);
+            unpop_dur_avg += parseFloat(not_popular[i].duration_ms);
+            unpop_instrument_avg += parseFloat(not_popular[i].instrumentalness);
+          }
+          var unpop_len = not_popular.length;
+          unpop_dance_avg = danceScale(unpop_dance_avg / unpop_len);
+          unpop_loud_avg = loudScale(unpop_loud_avg / unpop_len);
+          unpop_speech_avg = speechScale(unpop_speech_avg / unpop_len);
+          unpop_tempo_avg = tempoScale(unpop_tempo_avg / unpop_len);
+          unpop_valance_avg = valanceScale(unpop_valance_avg / unpop_len);
+          unpop_energy_avg = energyScale(unpop_energy_avg / unpop_len);
+          unpop_dur_avg = durationScale(unpop_dur_avg / unpop_len);
+          unpop_instrument_avg = InstrumentScale(
+            unpop_instrument_avg / unpop_len
+          );
+
+          var data = [
+            [
+              //iPhone
+              { axis: "danceability", value: pop_dance_avg },
+              { axis: "loudness", value: pop_loud_avg },
+              { axis: "speechiness", value: pop_speech_avg },
+              { axis: "tempo", value: pop_tempo_avg },
+              { axis: "valance", value: pop_valance_avg },
+              { axis: "energy", value: pop_energy_avg },
+              { axis: "duration", value: pop_dur_avg },
+              { axis: "instrumentalness", value: pop_instrument_avg },
+            ],
+            [
+              //not_popular
+              { axis: "danceability", value: unpop_dance_avg },
+              { axis: "loudness", value: unpop_loud_avg },
+              { axis: "speechiness", value: unpop_speech_avg },
+              { axis: "tempo", value: unpop_tempo_avg },
+              { axis: "valance", value: unpop_valance_avg },
+              { axis: "energy", value: unpop_energy_avg },
+              { axis: "duration", value: unpop_dur_avg },
+              { axis: "instrumentalness", value: unpop_instrument_avg },
+            ],
+          ];
+
+          var color = d3.scale.ordinal().range(["#00A0B0", "#CC333F"]);
+          var radarChartOptions = {
+            w: r_width / 1.2,
+            h: r_height / 1.2,
+            margin: margin,
+            maxValue: 100,
+            levels: 5,
+            roundStrokes: true,
+            color: color,
+          };
+          //Call function to draw the Radar chart
+          RadarChart(element, data, radarChartOptions, file, Identify);
+        });
+      }
+    </script>
+    <div class="p5_container" id="song_1">
+      <div class="box center" id="button_1"></div>
+    </div>
+    <script>
+      const box_1 = document.querySelector("#button_1");
+      box_1.addEventListener("click", (e) => {
+        e.target.classList.toggle("pause");
+      });
+    </script>
+
+    </script>
+    <div class="p5_container" id="song_2">
+      <div class="box center" id="button_2"></div>
+    </div>
+    <script>
+      const box_2 = document.querySelector("#button_2");
+      box_2.addEventListener("click", (e) => {
+        e.target.classList.toggle("pause");
+      });
+    </script>
+    <script type="text/javascript" src="features.js"></script>
+    <script type="text/javascript" src="sketch_combine.js"></script>
+    <em class= "Note">Different key of song will show different colors</em>
+    <em class= "Note"><br> Particle numbers are effected by the number of lyrics</em>
+    <em class= "Note"><br> Particle speed is effected by the energy of bass</em>
+    <em class= "Note"><br> Size of circles are effected by sound energy of corresponding frequencies</em>
+
+    <div class="spacer"></div>
+    <div id="myFeatureGraph"></div>
+    <div style="float: left;">
+      <label style="font-size:14px">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Select Musical Features:</label>
+      <select id="selectButton"></select>
+    </div>
+    <div class="spacer"></div>
+    <div id="myMlGraph"></div>
+
+
+    <script src="linechart.js"></script>
+    <script>
+      LineChart("./static/data_linechart/linechart_data.csv");
+    </script>
+
+    </body>
+  </body>
+</html>

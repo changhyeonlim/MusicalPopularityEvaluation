@@ -1,0 +1,142 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  fill: #242424;
+  text-align: center;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+  cursor: default;
+  background-color: #f5f5f5;
+  
+}
+
+h1{
+  font-family: "Open Sans";
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+}
+.content{
+  margin:0 auto; 
+  width:1250px;
+}
+
+.legend {
+  font-family: "Raleway", sans-serif;
+  fill: #333333;
+}
+
+.tooltip {
+  fill: #333333;
+  font-size: 20px;
+}
+
+.container {
+  float: left;
+  position: relative;
+  left: 10px;
+}
+
+.dropdown {
+  position: absolute;
+  bottom: 560px;
+  left: 140px;
+  font-size: 15px;
+  font-family: "Raleway", sans-serif;
+}
+
+.checkbox_c {
+  position: absolute;
+  font-size: 15px;
+  left: 140px;
+  font-family: "Raleway", sans-serif;
+}
+
+#dropdown_title {
+  position: absolute;
+  left: 55px;
+  top: 40px;
+}
+#chart_title {
+  font-size: 15px;
+}
+
+#check_title_1 {
+  position: absolute;
+  left: 55px;
+  top: 62px;
+}
+
+#check_title_2 {
+  position: absolute;
+  left: 135px;
+  top: 62px;
+}
+
+#popular_checkbox_1 {
+  position: absolute;
+  left: 110px;
+  top: 62px;
+}
+
+#popular_checkbox_2 {
+  position: absolute;
+  left: 110px;
+  top: 62px;
+}
+
+#not_popular_checkbox_1 {
+  position: absolute;
+  left: 220px;
+  top: 62px;
+}
+
+#not_popular_checkbox_2 {
+  position: absolute;
+  left: 220px;
+  top: 62px;
+}
+
+#song_1 {
+  float: left;
+  position: relative;
+  margin: 2px;
+}
+
+#song_2 {
+  float: left;
+  position: relative;
+  margin: 2px;
+}
+
+.center {
+  position: absolute;
+  left: 274px;
+  top: 270px;
+  transform: translate(50%, 50%);
+}
+
+.box {
+  width: 37px;
+  height: 37px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-width: 19px 0px 19px 37px;
+  border-color: transparent transparent transparent rgb(28, 104, 155);
+  transition: all 100ms ease-in-out;
+}
+
+.pause {
+  border-style: double;
+  border-width: 0px 0px 0px 30px;
+}
+
+#defaultCanvas0 {
+  border-radius: 500px;
+}
+
+#defaultCanvas1 {
+  border-radius: 500px;
+}
+
+.Note{
+  position: relative;
+}
