@@ -2,7 +2,7 @@
 ## Summary
 ## Motivation and Distinction
 ## Our Definition of Popularity
-<img src="images/popularitydefinition.png?raw=true"/>
+<img src="images/popularitydefintion.png?width=400"/>
 
 ## Data Collections and Manipulation
 <img src="images/datacollection.png?raw=true"/>
