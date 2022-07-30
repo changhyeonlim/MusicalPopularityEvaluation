@@ -9,7 +9,7 @@ Many research groups including social sciences, computer science, and even music
 
 
 ## Our Definition of Popularity
-<img src="images/popularitydefintion.png"/>
+<img src="images/popularitydefintion.png" width = "200">
 
 ## Data Collections and Manipulation
 <img src="images/datacollection.png"/>
