@@ -14,7 +14,7 @@ When coming up with the defintion of popularity, we asked ourselves what quantif
 
 ## Data Collections and Manipulation
 <img src="images/datacollection.png" width = "600">
-Using Billboard Hot 100 API (https://github.com/guoguo12/billboard-charts), we scraped hot 100 charts weekly starting from the year 1980. Song artists and name were sometimes not identical between two sources. Thus, iterations of regular expressions and manual review were used to fill the missing information. Despite this method, some of the musics which were not present in Spotify source were omitted from the analysis. Given the song name and artists group from Billboard Hot 100, the musical features are pulled from Spotify API. Each weekly data are aggregated yearly and divided between popular and non-popular group using the popularity definition. 
+Using Billboard Hot 100 API (https://github.com/guoguo12/billboard-charts, https://pypi.org/project/billboard.py/), we scraped hot 100 charts weekly starting from the year 1980. Song artists and name were sometimes not identical between two sources. Thus, iterations of regular expressions and manual review were used to fill the missing information. Despite this method, some of the musics which were not present in Spotify source were omitted from the analysis. Given the song name and artists group from Billboard Hot 100, the musical features are pulled from Spotify API. Each weekly data are aggregated yearly and divided between popular and non-popular group using the popularity definition. 
 
 ## Exploratory Data Analysis using a Radar Plot
 <img src="images/distinctradar.png" width = "600">
