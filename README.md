@@ -10,7 +10,7 @@ Many research groups including social sciences, computer science, and even music
 
 ## Our Definition of Popularity
 <img src="images/popularitydefintion.png" width = "600">
-When coming up with the defintion of popularity, we asked ourselves what quantifies a song to be popular? It can be how many times people have listened to the song. It also can be how many times it has been discussed within a social media. We decided that each of these metrics will have a varied measure based on the source. Thus, we focused more on the duration of the song staying within a ranking chart. That is, the longer a song stays within a top rank, the more popular the song will be within the musical industry. Now, there are some extreme cases in which the song could be on the 100th rank for a quarter of a year or be on the top 5 rank for only few weeks. We took the number of times a song appeared in a weekly Hot 100 Billboard chart and plotted the cumulative distriution. The number of weeks that corresponds to the 50% of the cumulative distribution was set as the threshold for dividng the popular to nonpopular group. 
+When coming up with the defintion of popularity, we asked ourselves what quantifies a song to be popular? It can be how many times people have listened to the song. It also can be how many times it has been discussed within a social media. We decided that each of these metrics will have a varied measure based on the source. Thus, we focused more on the duration of the song staying within a ranking chart. That is, the longer a song stays within a top rank, the more popular the song will be within the musical industry. Now, there are some extreme cases in which the song could be on the 100th rank for a quarter of a year or be on the top 5 rank for only few weeks. We took the number of times a song appeared in a weekly Hot 100 Billboard chart and plotted the cumulative distriution. The number of weeks that corresponds to the 50% of the cumulative distribution was set as the threshold for dividng the popular to nonpopular group. Based on this defintion, we saw that the number of weekes that divides between popoular vs nonpopular group is **10 weeks**.
 
 ## Data Collections and Manipulation
 <img src="images/datacollection.png" width = "600">
@@ -18,7 +18,8 @@ Using Billboard Hot 100 API (https://github.com/guoguo12/billboard-charts), we s
 
 ## Exploratory Data Analysis using a Radar Plot
 <img src="images/distinctradar.png" width = "600">
+There are multiple number of musical features for each song. To compare all features across each year and for popular or non-popular group, we used a radar plot to visualize the distinct features that different between two groups (year or popularity group). Each of the features are normalized based on the range and scaled so that all features can be displayed within the radius of the radar plot. 
 
 ## ML Model on Popularity
 <img src="images/mlmodel.png" width = "600">
-
+Using the popular and nonpopular group for each of the year, we used a classical machine learning techniques to classify if a song is popular or nonpopular. We used random forest for its tolerance to a high variance. We realized fast that many of the musical features did not lead to a significant correlation to the classification of the popular groups. With a slight doubt, we also included artist ID as another feature, and it improved the model performance. This led to a conclusion that the musical popularity doesn't follow specific musical features over the time but correlates with the artist. 
