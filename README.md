@@ -10,6 +10,7 @@ Many research groups including social sciences, computer science, and even music
 
 ## Our Definition of Popularity
 <img src="images/popularitydefintion.png" width = "600">
+When coming up with the defintion of popularity, we asked ourselves what quantifies a song to be popular? It can be how many times people have listened to the song. It also can be how many times it has been discussed within a social media. We decided that each of these metrics will have a varied measure based on the source. Thus, we focused more on the duration of the song staying within a ranking chart. That is, the longer a song stays within a top rank, the more popular the song will be within the musical industry. Now, there are some extreme cases in which the song could be on the 100th rank for a quarter of a year or be on the top 5 rank for only few weeks. We took the number of times a song appeared in a weekly Hot 100 Billboard chart and plotted the cumulative distriution. The number of weeks that corresponds to the 50% of the cumulative distribution was set as the threshold for dividng the popular to nonpopular group. 
 
 ## Data Collections and Manipulation
 <img src="images/datacollection.png" width = "600">
